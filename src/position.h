@@ -361,7 +361,6 @@ void Position::undo(const Move m) {
 	--game_ply;
 }
 
-
 //Generates all legal moves in a position for the given side. Advances the move pointer and returns it.
 template<Color Us>
 Move* Position::generate_legals(Move* list) {
