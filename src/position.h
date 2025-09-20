@@ -31,8 +31,8 @@ public:
 
 
 namespace zobrist {
-	extern uint64_t zobrist_table[NPIECES][NSQUARES];
-	extern void initialise_zobrist_keys();
+	inline uint64_t zobrist_table[NPIECES][NSQUARES];
+	void initialise_zobrist_keys();
 }
 
 //Stores position information which cannot be recovered on undo-ing a move
