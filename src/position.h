@@ -130,6 +130,8 @@ public:
 	template<Color C> inline Bitboard orthogonal_sliders() const;
 	template<Color C> inline Bitboard all_pieces() const;
 	template<Color C> inline Bitboard attackers_from(Square s, Bitboard occ) const;
+	template<Color C> inline Bitboard get_pinned(Square s, Bitboard us, Bitboard occ) const;
+	template<Color C> inline Bitboard blockers_to(Square s, Bitboard occ) const;
 
 	template<Color C> inline bool in_check() const {
 		return attackers_from<~C>(bsf(bitboard_of(C, KING)), all_pieces<WHITE>() | all_pieces<BLACK>());
@@ -181,8 +183,8 @@ inline Bitboard Position::attackers_from(Square s, Bitboard occ) const {
 }
 
 
-/*template<Color C>
-Bitboard Position::pinned(Square s, Bitboard us, Bitboard occ) const {
+template<Color C>
+inline Bitboard Position::get_pinned(Square s, Bitboard us, Bitboard occ) const {
 	Bitboard pinned = 0;
 
 	Bitboard pinners = get_xray_rook_attacks(s, occ, us) & orthogonal_sliders<~C>();
@@ -195,7 +197,7 @@ Bitboard Position::pinned(Square s, Bitboard us, Bitboard occ) const {
 }
 
 template<Color C>
-Bitboard Position::blockers_to(Square s, Bitboard occ) const {
+inline Bitboard Position::blockers_to(Square s, Bitboard occ) const {
 	Bitboard blockers = 0;
 	Bitboard candidates = get_rook_attacks(s, occ) & occ;
 	Bitboard attackers = get_rook_attacks(s, occ ^ candidates) & orthogonal_sliders<~C>();
@@ -205,7 +207,7 @@ Bitboard Position::blockers_to(Square s, Bitboard occ) const {
 
 	while (attackers) blockers |= SQUARES_BETWEEN_BB[s][pop_lsb(&attackers)];
 	return blockers;
-}*/
+}
 
 //Plays a move in the position
 template<Color C>
