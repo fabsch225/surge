@@ -31,6 +31,7 @@ public:
 
 
 namespace zobrist {
+	inline uint64_t side_key;
 	inline uint64_t zobrist_table[NPIECES][NSQUARES];
 	void initialise_zobrist_keys();
 }
@@ -56,7 +57,7 @@ struct UndoInfo {
 };
 
 class Position {
-private:
+public:
 	//A bitboard of the locations of each piece
 	Bitboard piece_bb[NPIECES];
 	
@@ -72,7 +73,7 @@ private:
 	//The zobrist hash of the position, which can be incrementally updated and rolled back after each
 	//make/unmake
 	uint64_t hash;
-public:
+
 	//The history of non-recoverable information
 	UndoInfo history[256];
 	
@@ -685,8 +686,8 @@ Move* Position::generate_legals(Move* list) {
 	return list;
 }
 
-//A convenience class for interfacing with legal moves, rather than using the low-level
-//generate_legals() function directly. It can be iterated over.
+
+
 template<Color Us>
 class MoveList {
 public:

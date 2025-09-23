@@ -12,6 +12,8 @@ void zobrist::initialise_zobrist_keys() {
 	for (int i = 0; i < NPIECES; i++)
 		for (int j = 0; j < NSQUARES; j++)
 			zobrist::zobrist_table[i][j] = rng.rand<uint64_t>();
+
+	side_key = rng.rand<uint64_t>();
 }
 
 //Pretty-prints the position (including FEN and hash key)
